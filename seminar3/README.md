@@ -28,12 +28,12 @@ Deși UDP nu este considerat a fi un protocol de încredere, deoarece nu există
 - se stabilește o conexiune normală TCP între mine (C1 - client 1) și serverul pe care vreau să-l accesez - S2 (să spunem pe portul 80, care nu e reachable)
 - pachetul TCP este încapsulat drept data pentru un alt pachet TCP care merge spre portul 22 (S1) (care e reachable) - data e criptat, secure shell, nimeni nu poate vedea ce e acolo (nici firewall)
 
-![](https://github.com/liviuiosim/computer-networks-2024/blob/main/seminar_3/assets/tunnel1.png)
+![](https://github.com/liviuiosim/computer-networks-2024/blob/main/seminar3/assets/tunnel1.png)
 
 - S1 primește pachetul, obține conținutul, care este un alt pachet TCP (așa cum a fost încapsulat) și, conform acestuia, îl redirecționează mai departe către S2 și schimbă în antet C1 cu S1 pentru că altfel nu ar fi acceptat
 
-![](https://github.com/liviuiosim/computer-networks-2024/blob/main/seminar_3/assets/tunnel2.png)
+![](https://github.com/liviuiosim/computer-networks-2024/blob/main/seminar3/assets/tunnel2.png)
 
 - S2 returnează index.html către S1 care trimite către C1, încapsulând din nou pachetul TCP drept un response mascat de la S1 (în realitate răspunsul vine de la S2)
 
-![](https://github.com/liviuiosim/computer-networks-2024/blob/main/seminar_3/assets/tunnel3.png)
+![](https://github.com/liviuiosim/computer-networks-2024/blob/main/seminar3/assets/tunnel3.png)
