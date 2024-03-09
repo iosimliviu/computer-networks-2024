@@ -15,7 +15,7 @@
 ### Intro - Modelul OSI 101
 
 Rețelele de calculatoare permit ca computerele să comunice între ele indiferet de unde se află în lume. Arhitectura acestora este abstractizată în 7 nivele, conform modelului OSI (Open Systems Interconnection).
-![modelul OSI](https://sparkbox.com/uploads/article_uploads/f-gooden_22-01_OSIModel.png)
+![modelul OSI](https://images.ctfassets.net/fczckc3dt6mv/6Vkx9BWaUVDLfs9XVBos1S/d1e0274ac1766b9da3d4b6bcbcde3569/f-gooden_22-01_OSIModel.png)
 
 - **Application**
         - la acest nivel se regăsesc protocoalele HTTP (_Hyper Text Transfer Protocol_), smtp (_Simple Mail Transfer Protocol_), ftp (_File Transfer Protocol_), responsabile pentru inițierea cererilor și obținerea răspunsurilor
