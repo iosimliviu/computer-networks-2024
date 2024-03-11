@@ -7,10 +7,7 @@ BUFFER_SIZE = 8
 def get_command(command):
     c = command.strip()
     content_lengh = len(c)
-    print(content_lengh)
     total_length = content_lengh + len(str(content_lengh)) + 1
-    print("len(str(content_lengh)) + 1", len(str(content_lengh)) + 1)
-    print("total_length",total_length)
     return (str(total_length) + ' ' + c).encode('utf-8')
 
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
