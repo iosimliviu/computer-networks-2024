@@ -23,7 +23,6 @@ def handle_client(client_socket, client):
         client.sendall(dest_res)
 
 def process_connection(server_socket, client_socket):
-  server_socket.settimeout(1.0)
   while is_running:
     client, addr = server_socket.accept()
     print(f'{addr} has connected')
