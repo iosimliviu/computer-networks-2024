@@ -34,96 +34,24 @@ class StateMachine:
     self.client = client
   
   def add_transition(self, state_name, command, transition, end_state = 0):
-    self.transitions.setdefault(state_name, {})
-    self.transitions[state_name][command] = transition
-    if end_state:
-      self.end_states.append(name)
+    return
 
   def set_start(self, name):
-      self.start_state = name
-      self.current_state = name
+    return
 
   def process_command(self, unpacked_request):
-    print('state before %s' % self.current_state)
-    handler = self.transitions[self.current_state][unpacked_request.type]
-    print('transition', handler)
-    if not handler:
-      return Response(-4, 'cannot transition from this state')
-    else:
-      (new_state, response) = handler(unpacked_request, self.global_state, self.client)
-      self.current_state = new_state
-      print('state after %s' % self.current_state)
-      return response
+    return
 
-def request_connect(request, global_state, client):
-  if len(request.params) > 0:
-    if request.params[0] == SECRET:
-      return ('auth', Response(0, 'you are in'))
-    else:
-      return ('start', Response(-2, 'you do not know the secret'))
-  else:
-    return ('start', Response(-1, 'not enough params'))
-  
-def request_disconnect(request, global_state, client):
-  return ('start', Response(0, 'you are now out'))
-
-def request_subscribe(request, global_state, client):
-  print('STATE')
-  print(global_state)
-  if len(request.params) > 0:
-    global_state.subscribe(request.params[0], client)
-    return ('auth', Response(0, 'you are now subscribed to %s' % request.params[0]))
-  else:
-    return ('auth', Response(-1, 'not enough params'))
-
-def request_unsubscribe(request, global_state, client):
-  if len(request.params) > 0:
-    global_state.unsubscribe(request.params[0], client)
-    return ('auth', Response(0, 'you are now unsubscribed from %s' % request.params[0]))
-  else:
-    return ('auth', Response(-1, 'not enough params'))
-
-def request_publish(request, global_state, client):
-  if len(request.params) > 1:
-    topic = request.params[0]
-    data = request.params[1]
-    for c in global_state.topics[topic]:
-      if c != client:
-        c.sendall(bytes(data, encoding='utf-8'))
-    return ('auth', Response(0, 'message was published'))
-  else:
-    return ('auth', Response(-1, 'not enough params'))
 
 class TopicProtocol(StateMachine):
   def __init__(self, client, global_state):
     super().__init__(client, global_state)
-    self.set_start('start')
-    self.add_transition('start', 'connect', request_connect)
-    self.add_transition('auth', 'disconnect', request_disconnect)
-    self.add_transition('auth', 'subscribe', request_subscribe)
-    self.add_transition('auth', 'unsubscribe', request_unsubscribe)
-    self.add_transition('auth', 'publish', request_publish)
 
 class TopicList:
   def __init__(self):
     self.clients = []
     self.topics = {}
     self.lock = threading.Lock()
-  def add_client(self, client):
-    with self.lock:
-      self.clients.append(client)
-  def remove_client(self, client):
-    with self.lock:
-      self.clients.remove(client)
-      for topic, clients in self.topics:
-        clients.remove(client)
-  def subscribe(self, topic, client):
-    with self.lock:
-      self.topics.setdefault(topic, [])
-      self.topics[topic].append(client)
-  def unsubscribe(self, topic, client):
-    with self.lock:
-      self.topics[topic].remove(client)
 
 is_running = True
 global_state = TopicList()
