@@ -61,9 +61,9 @@ def passive_get(command_socket, command):
 				message_length = data[0]
 				remaining = message_length - BUFFER_SIZE
 				while remaining > 0:
-					data = client.recv(BUFFER_SIZE)
+					data = file_socket.recv(BUFFER_SIZE)
 					full_data = full_data + data
-					remaining = remaining - len(binary_data)
+					remaining = remaining - len(data)
 			f.write(full_data)
 
 def passive_put(command_socket, command):
